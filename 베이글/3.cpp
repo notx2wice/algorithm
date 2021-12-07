@@ -26,7 +26,7 @@ int main(){
     
     for (k = 0; k <max_w; k++) 
         if (dp[N/2][k])
-            if (diff > abs(t -2*k))
+            if (diff > abs(t-2*k))
             {
                 diff = abs(t-2*k);
                 a = k;
