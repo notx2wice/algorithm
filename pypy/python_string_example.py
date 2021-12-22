@@ -61,3 +61,8 @@ if __name__ == "__main__":
     str = "u 123"
     print( int(str[2:len(str) ]))
     print( 999 // 500)
+
+    #인풋이 한개일 떄 어떻게 동작하지?
+    one_input = int(input())
+    a, b = map(int, input().split())
+    print(one_input, a, b)
