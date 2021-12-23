@@ -17,6 +17,10 @@
 check = [ 2147483647 for _ in range(32001)]
 
 can = set()
+def rangeCheck(a):
+    if a >= 1 and a <= 32000:
+        return True
+    return False
 
 def solution(N, number):
     answer = 0
@@ -27,14 +31,65 @@ def solution(N, number):
         sum += N
         if sum < 32001:
             check[sum] = idx
+            print( sum, idx)
             can.add(sum)
         idx += 1
+
+    maded = [ x for x in can]
+
     
     for _ in range(8):
+        idx = 0
+        rr = len(maded)
+        for t in maded:
+            can.add(t)
+        while idx < rr:
+            for acan in can:
+                x = acan
+                y = maded[idx]
+                adds = check[ x ] + check[ y]
+                if adds > 8 :
+                    continue
+                if (rangeCheck( x + y) and check[x+y] > adds):
+                    if check[ x + y] == 2147483647:
+                        maded.append(x+y)
+                    check[x+y] = adds
+                    
+                if (rangeCheck( x * y) and check[x*y] > adds):
+                    if check[ x * y] == 2147483647:
+                        maded.append(x*y)
+                    check[x*y] = adds
 
-    return answer
+                if (rangeCheck( x - y) and check[x - y] > adds):
+                    if check[ x - y] == 2147483647:
+                        maded.append(x-y)
+                    check[x-y] = adds
 
-N = 5
-number = 12
+                if (rangeCheck( y - x) and check[y - x] > adds):
+                    if check[ y - x] == 2147483647:
+                        maded.append(y-x)
+                    check[y-x] = adds
+            
 
+                if (y != 0 and rangeCheck( x // y) and check[x // y] > adds):
+                    if check[ x // y] == 2147483647:
+                        maded.append(x // y)
+                    check[x//y] = adds
+
+                if (x != 0 and rangeCheck( y // x) and check[y // x] > adds):
+                    if check[ y // x] == 2147483647:
+                        maded.append(y // x)
+                    check[y // x] = adds
+            
+            idx += 1
+    print(check[number])
+    if check[number] > 8:
+        return -1
+    return check[number]
+
+N = 2
+number = 11
+
+N= 8
+number = 53
 print(solution(N, number))
