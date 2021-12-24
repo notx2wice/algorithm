@@ -31,13 +31,11 @@ def solution(N, number):
         sum += N
         if sum < 32001:
             check[sum] = idx
-            print( sum, idx)
             can.add(sum)
         idx += 1
 
     maded = [ x for x in can]
 
-    
     for _ in range(8):
         idx = 0
         rr = len(maded)
@@ -69,8 +67,7 @@ def solution(N, number):
                     if check[ y - x] == 2147483647:
                         maded.append(y-x)
                     check[y-x] = adds
-            
-
+        
                 if (y != 0 and rangeCheck( x // y) and check[x // y] > adds):
                     if check[ x // y] == 2147483647:
                         maded.append(x // y)
@@ -80,9 +77,7 @@ def solution(N, number):
                     if check[ y // x] == 2147483647:
                         maded.append(y // x)
                     check[y // x] = adds
-            
             idx += 1
-    print(check[number])
     if check[number] > 8:
         return -1
     return check[number]
