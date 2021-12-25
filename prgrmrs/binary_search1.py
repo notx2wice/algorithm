@@ -17,8 +17,8 @@ n명	 times	return
 6	[7, 10]	28
 
 """
-n =  0
-times = [2, 3, 6]
+n =  10
+times = [8,10, 6]
 
 def cal(time, times):
     sum = 0
@@ -33,7 +33,7 @@ def find( left, right, n, times):
     mid = (left + right) // 2 
     print(f'left = {left}, mid = {mid}, right = {right}')
     r_cal, perfect = cal(mid,times)
-    if (r_cal - perfect + 1) <=  n <= r_cal:
+    if (r_cal - perfect + 1) <=  n  and n <= r_cal:
         return mid
     elif  r_cal - perfect + 1 > n:
         return find(left, mid -1, n, times)
@@ -42,7 +42,13 @@ def find( left, right, n, times):
         return find(mid + 1, right, n , times)
 
 def solution(n, times):
-    answer = find(0, 10 ** 10 + 1, n, times)
+    answer = find(0, 10 ** 20 + 1, n, times)
     return answer
 
 print(solution(n, times))
+array = [1, 5, 2, 6, 3, 7, 4]
+commands = [[2, 5, 3], [4, 4, 1], [1, 7, 3]]
+answer = []
+for c in commands:
+    answer.append( sorted(array[ (c[0] - 1) : c[1] ])[c[2]-1])
+print(answer)
