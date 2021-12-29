@@ -6,11 +6,28 @@ solution 함수를 작성하세요.
 이 마을에 있는 집은 3개 이상 1,000,000개 이하입니다.
 money 배열의 각 원소는 0 이상 1,000 이하인 정수입니다.
 '''
+def dfs(n, dp, money):
+    if n == 0:
+        return money[n]
+    if n == 1:
+        return max(money[0], money[1])
+    if dp[n]:
+        return dp[n]
+    else :
+        dp[n] = max(dfs(n-2, dp, money) + money[n] ,dfs(n-1, dp, money))
+        return dp[n]
 
-def dp():
-    
 def solution(money):
+    dp = [0 for _ in range(len(money))]
+    dp1 = [0 for _ in range(len(money))]
+    moneya = money[:-1]
+    answer1 = dfs(len(moneya) - 1, dp, moneya)
+    moneyb = money[1:]
+    answer2 = dfs(len(moneyb) - 1, dp1, moneyb)
+    # print(moneya, moneyb)
+    # print(answer1, answer2)
+    return max(answer1, answer2)
     
-money = [1000, 2, 70]
+money = [x for x in range(1000000000)]
 
 print(solution(money))
