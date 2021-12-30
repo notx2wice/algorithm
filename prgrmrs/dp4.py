@@ -6,28 +6,68 @@ solution 함수를 작성하세요.
 이 마을에 있는 집은 3개 이상 1,000,000개 이하입니다.
 money 배열의 각 원소는 0 이상 1,000 이하인 정수입니다.
 '''
-def dfs(n, dp, money):
-    if n == 0:
-        return money[n]
-    if n == 1:
-        return max(money[0], money[1])
-    if dp[n]:
+import sys
+limit_number = 10**9
+sys.setrecursionlimit(limit_number)
+
+def dfs(start, n,dp, money):
+    if n == start:
+        dp[start] = money[n]
+        return dp[n]
+    if n == start + 1:
+        dp[start + 1] = max(money[start], money[start + 1])
+        return dp[start + 1]
+    if dp[n] > 0:
         return dp[n]
     else :
-        dp[n] = max(dfs(n-2, dp, money) + money[n] ,dfs(n-1, dp, money))
+        dp[n] = max( dfs(start,n-2, dp, money) + money[n] ,dfs(start,n-1, dp, money) )
         return dp[n]
 
 def solution(money):
-    dp = [0 for _ in range(len(money))]
-    dp1 = [0 for _ in range(len(money))]
-    moneya = money[:-1]
-    answer1 = dfs(len(moneya) - 1, dp, moneya)
-    moneyb = money[1:]
-    answer2 = dfs(len(moneyb) - 1, dp1, moneyb)
-    # print(moneya, moneyb)
-    # print(answer1, answer2)
+    dp = [0] * 1000001
+    answer1 = dfs(0, len(money) - 2, dp, money)
+    dp = [0] * 1000001
+    answer2 = dfs(1,len(money) - 1, dp, money)
+
     return max(answer1, answer2)
     
-money = [x for x in range(1000000000)]
+money = [x for x in range(100000)]
 
 print(solution(money))
+'''
+def solution(money): 
+    dp1 = [0] * len(money) 
+    dp2 = [0] * len(money) 
+    # 1번 집을 터는 경우 
+    dp1[0] = money[0] 
+    for i in range(1, len(money) - 1): 
+    # # 마지막 집은 털지 못함
+        dp1[i] = max(dp1[i - 1], dp1[i - 2] + money[i]) 
+        # 1번 집을 안터는 경우 
+    dp2[0] = 0 
+    for i in range(1, len(money)): 
+        dp2[i] = max(dp2[i - 1], dp2[i - 2] + money[i]) 
+    return max(dp1[-2], dp2[-1])
+
+import sys
+limit_number = 10000000
+sys.setrecursionlimit(limit_number)
+
+def get_money(dp, money, st, ed):
+    if ed < st:
+        return 0
+    if st == ed:
+        return money[st]
+    if dp[st] != -1:
+        return dp[st]
+    dp[st] = max(get_money(dp, money, st+3, ed)+money[st+1], get_money(dp, money, st+2, ed)+money[st])
+    return dp[st]
+
+
+def solution(money):
+    dp = [-1]*1000000
+    anwser = get_money(dp, money, 1, len(money)-1)
+    dp = [-1]*1000000
+    anwser = max(anwser, get_money(dp, money, 2, len(money)-2)+ money[0])
+    return anwser
+'''
