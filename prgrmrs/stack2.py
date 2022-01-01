@@ -1,4 +1,5 @@
 from collections import deque
+import heapq
 
 def there_is_bigger(prior):
     idx = 0
@@ -13,6 +14,8 @@ def solution(priorities, location):
     t_list = [0 for _ in range(len(priorities))]
     t_list[location]  = 1
     loca = deque(t_list)
+    hq = heapq.heapify(t_list)
+    print(hq)
     while prior:
         bdx = there_is_bigger(prior)
         if bdx:
