@@ -2,7 +2,6 @@
 # n행 m열의 격자가 있습니다. 격자의 각 행은 0, 1, ..., n-1번의 번호,
 #  그리고 각 열은 0, 1, ..., m-1번의 번호가 순서대로 매겨져 있습니다. 
 # 당신은 이 격자에 공을 하나 두고, 그 공에 다음과 같은 쿼리들을 날리고자 합니다.
-
 # 열 번호가 감소하는 방향으로 dx칸 이동하는 쿼리 (query(0, dx))
 # 열 번호가 증가하는 방향으로 dx칸 이동하는 쿼리 (query(1, dx))
 # 행 번호가 감소하는 방향으로 dx칸 이동하는 쿼리 (query(2, dx))
@@ -28,12 +27,10 @@ def solution(n, m, x, y, queries):
     size = len(queries)
     rs, re = x, x
     cs, ce = y, y
-
     i = size - 1
     while (i >= 0):
         di = queries[i][0]
         dst = queries[i][1]
-
         if (di == 0):
             if cs != 0:
                 cs = cs + dst
@@ -52,7 +49,6 @@ def solution(n, m, x, y, queries):
             re = re + dst
             if re > n-1:
                 re = n -1
-        
         elif di == 3:
             rs = rs -dst
             if rs < 0:
@@ -78,25 +74,3 @@ y = 1
 queries = [[3,1],[2,2],[1,1],[2,3],[0,1],[2,1]]
 
 print(solution(n, m, x, y, queries))
-
-# import heapq
-
-# def solution(operations):
-#     hq = []
-#     for op in operations:
-#         cmd , num = op.split()
-#         if not hq :
-#             continue
-
-#         if cmd == 'I':
-#             heapq.heappush(hq, int(num))
-#             continue
-#         if num == "-1":
-#             heapq.heappop(hq)
-#         else:
-#             hq.remove(max(hq))
-
-#     if hq :
-#         return [max(hq), min(hq)]
-#     else :
-#         [0, 0]

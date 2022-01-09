@@ -1,4 +1,5 @@
 from collections import defaultdict
+
 def solution(genres, plays):
     answer = []
     all_in = []
